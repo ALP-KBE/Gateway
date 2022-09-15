@@ -1,4 +1,4 @@
-package ALP.KBEWarehouse;
+package ALP.KBEGateway.RabbitMQ;
 
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,14 @@ public class RabbitMQSender {
     private AmqpTemplate rabbitTemplate;
     @Autowired
     private Queue warehouseQueue;
-    public void send(Serializable serializable) {
+    @Autowired
+    private Queue priceQueue;
+
+    public void sendWarehouse(Serializable serializable) {
         rabbitTemplate.convertAndSend(warehouseQueue.getName(), serializable);
+    }
+
+    public void sendPrice(Serializable serializable) {
+        rabbitTemplate.convertAndSend(priceQueue.getName(), serializable);
     }
 }
