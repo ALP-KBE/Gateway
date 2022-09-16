@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ALP</groupId>
-	<artifactId>KBE-Warehouse</artifactId>
+	<artifactId>KBE-Gateway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>KBE-Warehouse</name>
+	<name>KBE-Gateway</name>
 	<description>KBE Project of Aaron, Li and Philip</description>
 	<properties>
 		<java.version>17</java.version>

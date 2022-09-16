@@ -18,7 +18,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @RestController
 @EnableSwagger2
 @Configuration
-public class KbeWarehouseApplication {
+public class KbeGatewayApplication {
 	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)
@@ -29,6 +29,6 @@ public class KbeWarehouseApplication {
 	}
 
 	public static void main(String[] args) throws IOException {
-		SpringApplication.run(KbeWarehouseApplication.class, args);
+		SpringApplication.run(KbeGatewayApplication.class, args);
 	}
 }

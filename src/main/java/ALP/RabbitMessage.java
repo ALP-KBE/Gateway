@@ -1,4 +1,4 @@
-package ALP.KBEGateway.RabbitMQ;
+package ALP;
 
 import java.io.Serializable;
 
