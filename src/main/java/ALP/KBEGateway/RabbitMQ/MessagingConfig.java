@@ -1,4 +1,4 @@
-package ALP.KBEWarehouse;
+package ALP.KBEGateway.RabbitMQ;
 
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -14,15 +14,22 @@ public class MessagingConfig {
     static final String TOPIC_EXCHANGE_NAME = "component-exchange";
 
     @Bean
-    public Queue warehouseQueue(){
+    public Queue warehouseQueue() {
         return new Queue("warehouse-queue");
+    }
+    
+    @Bean
+    public Queue priceQueue() {
+        return new Queue("price-queue");
     }
 
     @Bean
-    public Queue mainQueue()    {   return new Queue("main-queue");   }
+    public Queue mainQueue() {
+        return new Queue("main-queue");
+    }
 
     @Bean
-    public TopicExchange exchange(){
+    public TopicExchange exchange() {
         return new TopicExchange(TOPIC_EXCHANGE_NAME);
     }
 
@@ -30,20 +37,24 @@ public class MessagingConfig {
     public Binding warehouseBinding(Queue warehouseQueue, TopicExchange exchange) {
         return BindingBuilder.bind(warehouseQueue).to(exchange).with("warehouse-key");
     }
+    
+    @Bean
+    public Binding priceBinding(Queue priceQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(priceQueue).to(exchange).with("price-key");
+    }
 
     @Bean
     public Binding mainBinding(Queue mainQueue, TopicExchange exchange) {
         return BindingBuilder.bind(mainQueue).to(exchange).with("main-key");
     }
 
-
     @Bean
-    public MessageConverter converter(){
+    public MessageConverter converter() {
         return new Jackson2JsonMessageConverter();
     }
 
     @Bean
-    public AmqpTemplate template(ConnectionFactory connectionFactory)   {
+    public AmqpTemplate template(ConnectionFactory connectionFactory) {
         final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMessageConverter(converter());
         return rabbitTemplate;
