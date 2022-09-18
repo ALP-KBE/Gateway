@@ -2,13 +2,11 @@ package ALP.KBEGateway.Controller;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import ALP.KBEGateway.Model.Product;
 import ALP.KBEGateway.RabbitMQ.RabbitMQSender;
-import ALP.KBEGateway.RabbitMQ.RabbitMessage;
+import ALP.RabbitMessage;
 
 import static java.lang.Thread.sleep;
 

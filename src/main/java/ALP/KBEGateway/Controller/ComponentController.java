@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import ALP.KBEGateway.RabbitMQ.RabbitMQSender;
-import ALP.KBEGateway.RabbitMQ.RabbitMessage;
+import ALP.RabbitMessage;
 
 import static java.lang.Thread.sleep;
 
