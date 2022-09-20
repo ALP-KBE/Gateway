@@ -24,6 +24,11 @@ public class MessagingConfig {
     }
 
     @Bean
+    public Queue productQueue() {
+        return new Queue("product-queue");
+    }
+
+    @Bean
     public Queue mainQueue() {
         return new Queue("main-queue");
     }
@@ -41,6 +46,11 @@ public class MessagingConfig {
     @Bean
     public Binding priceBinding(Queue priceQueue, TopicExchange exchange) {
         return BindingBuilder.bind(priceQueue).to(exchange).with("price-key");
+    }
+
+    @Bean
+    public Binding productBinding(Queue productQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(productQueue).to(exchange).with("product-key");
     }
 
     @Bean
