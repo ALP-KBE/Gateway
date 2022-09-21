@@ -7,7 +7,7 @@ import java.util.HashMap;
  * Representation of a product of a guitar
  */
 public class Product implements Serializable {
-    
+
     private String name;
     private Component hals;
     private Component steg;
@@ -19,31 +19,38 @@ public class Product implements Serializable {
     private Component wirbel;
     private Component sattel;
     private Component decke;
+    private String additionalInfo;
     private HashMap<String, Component> components;
 
     public Product(String name,
-                    Component hals,
-                    Component steg,
-                    Component korpus,
-                    Component griffbrett,
-                    Component tonabnehmer,
-                    Component schallloch,
-                    Component kopf,
-                    Component wirbel,
-                    Component sattel,
-                    Component decke){
-                        this.name = name;
-                        this.hals = hals;
-                        this.steg = steg;
-                        this.korpus = korpus;
-                        this.griffbrett = griffbrett;
-                        this.tonabnehmer = tonabnehmer;
-                        this.schallloch = schallloch;
-                        this.kopf = kopf;
-                        this.wirbel = wirbel;
-                        this.sattel = sattel;
-                        this.decke = decke;
-                        createMap();
+            Component hals,
+            Component steg,
+            Component korpus,
+            Component griffbrett,
+            Component tonabnehmer,
+            Component schallloch,
+            Component kopf,
+            Component wirbel,
+            Component sattel,
+            Component decke,
+            String additionalInfo) {
+        this.name = name;
+        this.hals = hals;
+        this.steg = steg;
+        this.korpus = korpus;
+        this.griffbrett = griffbrett;
+        this.tonabnehmer = tonabnehmer;
+        this.schallloch = schallloch;
+        this.kopf = kopf;
+        this.wirbel = wirbel;
+        this.sattel = sattel;
+        this.decke = decke;
+        this.additionalInfo = additionalInfo;
+        createMap();
+    }
+
+    public Product() {
+        
     }
 
     public String getName() {
@@ -138,8 +145,12 @@ public class Product implements Serializable {
         return this.components;
     }
 
-    private void createMap(){
-        if(components == null){
+    public String getAdditionalInfo(){
+        return this.additionalInfo;
+    }
+
+    private void createMap() {
+        if (components == null) {
             components = new HashMap<>();
         }
         components.put("hals", hals);
@@ -153,11 +164,44 @@ public class Product implements Serializable {
         components.put("sattel", sattel);
         components.put("decke", decke);
     }
-    
+
+    public String Stringify() {
+        return this.getName() + "; " +
+                this.getHals().Stringify() + "; " +
+                this.getSteg().Stringify() + "; " +
+                this.getKorpus().Stringify() + "; " +
+                this.getGriffbrett().Stringify() + "; " +
+                this.getTonabnehmer().Stringify() + "; " +
+                this.getSchallloch().Stringify() + "; " +
+                this.getKopf().Stringify() + "; " +
+                this.getWirbel().Stringify() + "; " +
+                this.getSattel().Stringify() + "; " +
+                this.getDecke().Stringify();
+    }
+
+    public static Product Parse(String product) {
+        Product prod = new Product();
+        String[] parts = product.split(", ");
+        if(parts.length == 11){
+            prod.setName(parts[0]);
+            prod.setHals(Component.Parse(parts[1]));
+            prod.setSteg(Component.Parse(parts[2]));
+            prod.setKorpus(Component.Parse(parts[3]));
+            prod.setGriffbrett(Component.Parse(parts[4]));
+            prod.setTonabnehmer(Component.Parse(parts[5]));
+            prod.setSchallloch(Component.Parse(parts[6]));
+            prod.setKopf(Component.Parse(parts[7]));
+            prod.setWirbel(Component.Parse(parts[8]));
+            prod.setSattel(Component.Parse(parts[9]));
+            prod.setDecke(Component.Parse(parts[10]));
+        }
+        return prod;
+    }
+
     @Override
     public String toString() {
         String s = "";
-        for(Component component : components.values()){
+        for (Component component : components.values()) {
             s = s + "<-| ";
             s = s + component.toString();
             s = s + " |->";

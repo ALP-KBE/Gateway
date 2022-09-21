@@ -15,6 +15,8 @@ public class RabbitMQSender {
     private Queue warehouseQueue;
     @Autowired
     private Queue priceQueue;
+    @Autowired
+    private Queue productQueue;
 
     public void sendWarehouse(Serializable serializable) {
         rabbitTemplate.convertAndSend(warehouseQueue.getName(), serializable);
@@ -22,5 +24,9 @@ public class RabbitMQSender {
 
     public void sendPrice(Serializable serializable) {
         rabbitTemplate.convertAndSend(priceQueue.getName(), serializable);
+    }
+
+    public void sendProduct(Serializable serializable) {
+        rabbitTemplate.convertAndSend(productQueue.getName(), serializable);
     }
 }

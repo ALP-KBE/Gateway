@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Representation of a component of a guitar
  */
 public class Component implements Serializable {
-    
+
     private String komponententyp;
     private String name;
     private String material;
@@ -19,7 +19,7 @@ public class Component implements Serializable {
     private String verfuegbarkeit;
     private String klangauswirkung;
 
-    public Component(){
+    public Component() {
         this.komponententyp = "";
         this.name = "";
         this.material = "";
@@ -34,16 +34,16 @@ public class Component implements Serializable {
     }
 
     public Component(String komponententyp,
-                        String name, 
-                        String material, 
-                        String herkunft, 
-                        String farbe, 
-                        String hersteller, 
-                        String form, 
-                        String gebrauchszustand, 
-                        String preis, 
-                        String verfuegbarkeit, 
-                        String klangauswirkung){
+            String name,
+            String material,
+            String herkunft,
+            String farbe,
+            String hersteller,
+            String form,
+            String gebrauchszustand,
+            String preis,
+            String verfuegbarkeit,
+            String klangauswirkung) {
         this.komponententyp = komponententyp;
         this.name = name;
         this.material = material;
@@ -136,7 +136,7 @@ public class Component implements Serializable {
     public void setKlangauswirkung(String klangauswirkung) {
         this.klangauswirkung = klangauswirkung;
     }
-    
+
     public String getKomponententyp() {
         return this.komponententyp;
     }
@@ -145,18 +145,51 @@ public class Component implements Serializable {
         this.komponententyp = komponententyp;
     }
 
+    public String Stringify() {
+        return getKomponententyp() + ", " +
+                getName() + ", " +
+                getMaterial() + ", " +
+                getHerkunft() + ", " +
+                getFarbe() + ", " +
+                getHersteller() + ", " +
+                getForm() + ", " +
+                getGebrauchszustand() + ", " +
+                getPreis() + ", " +
+                getVerfuegbarkeit() + ", " +
+                getKlangauswirkung();
+    }
+
+    public static Component Parse(String component) {
+        Component comp = new Component();
+        String[] parts = component.split(", ");
+        if(parts.length == 11){
+            comp.setKomponententyp(parts[0]);
+            comp.setName(parts[1]);
+            comp.setMaterial(parts[2]);
+            comp.setHerkunft(parts[3]);
+            comp.setFarbe(parts[4]);
+            comp.setHersteller(parts[5]);
+            comp.setForm(parts[6]);
+            comp.setGebrauchszustand(parts[7]);
+            comp.setPreis(parts[8]);
+            comp.setVerfuegbarkeit(parts[9]);
+            comp.setKlangauswirkung(parts[10]);
+        }
+        return comp;
+    }
+
     @Override
     public String toString() {
-        return getKomponententyp() + ", " + 
-                getName() + ", " + 
-                getMaterial() + ", " + 
-                getHerkunft() + ", " + 
-                getFarbe() + ", " + 
-                getHersteller() + ", " + 
-                getForm() + ", " + 
-                getGebrauchszustand() + ", " + 
-                getPreis() + ", " + 
-                getVerfuegbarkeit() + ", " + 
+        return getKomponententyp() + ", " +
+                getName() + ", " +
+                getMaterial() + ", " +
+                getHerkunft() + ", " +
+                getFarbe() + ", " +
+                getHersteller() + ", " +
+                getForm() + ", " +
+                getGebrauchszustand() + ", " +
+                getPreis() + ", " +
+                getVerfuegbarkeit() + ", " +
                 getKlangauswirkung();
     }
 }
