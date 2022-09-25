@@ -47,6 +47,11 @@ public class MessagingConfig {
     public Binding priceBinding(Queue priceQueue, TopicExchange exchange) {
         return BindingBuilder.bind(priceQueue).to(exchange).with("price-key");
     }
+    
+    @Bean
+    public Binding currencyBinding(Queue currencyQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(currencyQueue).to(exchange).with("currency-key");
+    }
 
     @Bean
     public Binding productBinding(Queue productQueue, TopicExchange exchange) {

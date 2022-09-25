@@ -28,21 +28,36 @@ public class ComponentController {
      * @return all components (of given type)
      */
     @GetMapping("/components")
-    public String getComponents(@RequestParam(value = "id", defaultValue = "") String id) {
+    public String getComponents(@RequestParam(value = "currency", defaultValue = "") String currency) {
         returnMessage = null;
-        System.out.println("sending message");
         rabbitMQSender.sendWarehouse(new RabbitMessage("getComponents", ""));
-        System.out.println("message sent");
         while (returnMessage == null) {
             try {
                 System.out.println("und wir warten");
-                sleep(10);
+                sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        String rMessageCopy = returnMessage;
-        return rMessageCopy;
+        String allComponents = returnMessage;
+        returnMessage = null;
+        RabbitMessage rabbitMessage = new RabbitMessage("getCurrency", allComponents);
+        rabbitMessage.setAdditionalField(currency);
+        if(!currency.equals("")){
+            rabbitMQSender.sendCurrency(rabbitMessage);
+            while (returnMessage == null) {
+                try {
+                    System.out.println("und wir warten");
+                    sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+            return returnMessage;
+        }
+        else{
+            return allComponents;
+        }
     }
 
     @GetMapping("/components/{id}")
@@ -52,7 +67,7 @@ public class ComponentController {
         while (returnMessage == null) {
             try {
                 System.out.println("und wir warten");
-                sleep(10);
+                sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
