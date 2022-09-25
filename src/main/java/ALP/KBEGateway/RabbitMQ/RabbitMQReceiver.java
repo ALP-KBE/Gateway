@@ -31,7 +31,6 @@ public class RabbitMQReceiver {
             case "component":
                 ComponentController.handle((String) message.getValue());
                 break;
-
             case "product":
                 if (message.getValue() instanceof LinkedHashMap) {
                     LinkedHashMap<String, String> lhm = (LinkedHashMap<String, String>) message.getValue();
@@ -40,10 +39,11 @@ public class RabbitMQReceiver {
                     ProductController.handle((String) message.getValue());
                 }
                 break;
-
-            case "price":
-                PriceController.handle((String) message.getValue());
-                break;
+            case "currency":
+                ComponentController.handleCurrency((Double) message.getValue());
+            //case "price":
+            //    PriceController.handle((String) message.getValue());
+            //    break;
         }
     }
 }

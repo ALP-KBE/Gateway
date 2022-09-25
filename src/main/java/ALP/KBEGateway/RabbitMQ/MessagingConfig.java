@@ -34,6 +34,9 @@ public class MessagingConfig {
     }
 
     @Bean
+    public Queue currencyQueue()    {return new Queue("currency-queue");}
+
+    @Bean
     public TopicExchange exchange() {
         return new TopicExchange(TOPIC_EXCHANGE_NAME);
     }
@@ -53,6 +56,10 @@ public class MessagingConfig {
         return BindingBuilder.bind(productQueue).to(exchange).with("product-key");
     }
 
+    @Bean
+    public Binding currencyBinding(Queue currencyQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(currencyQueue).to(exchange).with("currency-key");
+    }
     @Bean
     public Binding mainBinding(Queue mainQueue, TopicExchange exchange) {
         return BindingBuilder.bind(mainQueue).to(exchange).with("main-key");
