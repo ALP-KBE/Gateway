@@ -24,6 +24,11 @@ public class MessagingConfig {
     }
 
     @Bean
+    public Queue currencyQueue() {
+        return new Queue("currency-queue");
+    }
+
+    @Bean
     public Queue productQueue() {
         return new Queue("product-queue");
     }
