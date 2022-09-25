@@ -145,37 +145,42 @@ public class Component implements Serializable {
         this.komponententyp = komponententyp;
     }
 
-    public String Stringify() {
-        return getKomponententyp() + ", " +
-                getName() + ", " +
-                getMaterial() + ", " +
-                getHerkunft() + ", " +
-                getFarbe() + ", " +
-                getHersteller() + ", " +
-                getForm() + ", " +
-                getGebrauchszustand() + ", " +
-                getPreis() + ", " +
-                getVerfuegbarkeit() + ", " +
-                getKlangauswirkung();
-    }
-
-    public static Component Parse(String component) {
-        Component comp = new Component();
-        String[] parts = component.split(", ");
-        if(parts.length == 11){
-            comp.setKomponententyp(parts[0]);
-            comp.setName(parts[1]);
-            comp.setMaterial(parts[2]);
-            comp.setHerkunft(parts[3]);
-            comp.setFarbe(parts[4]);
-            comp.setHersteller(parts[5]);
-            comp.setForm(parts[6]);
-            comp.setGebrauchszustand(parts[7]);
-            comp.setPreis(parts[8]);
-            comp.setVerfuegbarkeit(parts[9]);
-            comp.setKlangauswirkung(parts[10]);
+    public void set(String key, String value) {
+        switch (key) {
+            case ("komponententyp"):
+                setKomponententyp(value);
+                break;
+            case ("name"):
+                setName(value);
+                break;
+            case ("material"):
+                setMaterial(value);
+                break;
+            case ("herkunft"):
+                setHerkunft(value);
+                break;
+            case ("farbe"):
+                setFarbe(value);
+                break;
+            case ("hersteller"):
+                setHersteller(value);
+                break;
+            case ("form"):
+                setForm(value);
+                break;
+            case ("gebrauchszustand"):
+                setGebrauchszustand(value);
+                break;
+            case ("preis"):
+                setPreis(value);
+                break;
+            case ("verfuegbarkeit"):
+                setVerfuegbarkeit(value);
+                break;
+            case ("klangauswirkung"):
+                setKlangauswirkung(value);
+                break;
         }
-        return comp;
     }
 
     @Override
