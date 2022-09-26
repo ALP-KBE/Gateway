@@ -34,7 +34,7 @@ public class ProductController {
         rabbitMQSender.sendProduct(rabbitMessage);
         while (returnMessage == null) {
             try {
-                System.out.println("und wir warten");
+                System.out.println("waiting");
                 sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -58,7 +58,7 @@ public class ProductController {
         rabbitMQSender.sendProduct(rabbitMessage);
         while (returnMessage == null) {
             try {
-                System.out.println("und wir warten");
+                System.out.println("waiting");
                 sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -80,7 +80,7 @@ public class ProductController {
         rabbitMQSender.sendProduct(rabbitMessage);
         while (returnMessage == null) {
             try {
-                System.out.println("und wir warten");
+                System.out.println("waiting");
                 sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -92,7 +92,7 @@ public class ProductController {
         rabbitMQSender.sendPrice(rabbitMessage);
         while (returnMessage == null) {
             try {
-                System.out.println("und wir warten");
+                System.out.println("waiting");
                 sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -105,7 +105,7 @@ public class ProductController {
         rabbitMQSender.sendCurrency(rabbitMessage);
         while (returnMessage == null) {
             try {
-                System.out.println("und wir warten");
+                System.out.println("waiting");
                 sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();

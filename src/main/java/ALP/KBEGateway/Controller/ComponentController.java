@@ -31,7 +31,7 @@ public class ComponentController {
         rabbitMQSender.sendWarehouse(new RabbitMessage("getComponents", ""));
         while (returnMessage == null) {
             try {
-                System.out.println("und wir warten");
+                System.out.println("waiting");
                 sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -45,7 +45,7 @@ public class ComponentController {
             rabbitMQSender.sendCurrency(rabbitMessage);
             while (returnMessage == null) {
                 try {
-                    System.out.println("und wir warten");
+                    System.out.println("waiting");
                     sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -63,7 +63,7 @@ public class ComponentController {
         rabbitMQSender.sendWarehouse(new RabbitMessage("getComponents", String.valueOf(objectId)));
         while (returnMessage == null) {
             try {
-                System.out.println("und wir warten");
+                System.out.println("waiting");
                 sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();

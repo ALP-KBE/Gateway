@@ -29,14 +29,12 @@ public class PriceController {
     @PostMapping("/price")
     public String calculatePrice(@RequestBody Serializable product) {
         returnMessage = null;
-        System.out.println("sending message");
         RabbitMessage rabbitMessage = new RabbitMessage("getPrice", product);
         rabbitMessage.setAdditionalField("");
         rabbitMQSender.sendPrice(rabbitMessage);
-        System.out.println("message sent");
         while (returnMessage == null) {
             try {
-                System.out.println("und wir warten");
+                System.out.println("waiting");
                 sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
