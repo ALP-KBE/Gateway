@@ -22,6 +22,9 @@ public class RabbitMQReceiver {
     @Autowired
     PriceController priceController;
 
+    @Autowired
+    RabbitMQSender sender;
+    
     @RabbitHandler
     public void receiver(RabbitMessage message) {
         switch (message.getType()) {
@@ -35,6 +38,14 @@ public class RabbitMQReceiver {
 
             case "price":
                 PriceController.handle((String) message.getValue());
+                break;
+
+            case "getComponentsCsv":
+                sender.sendWarehouse(message);
+                break;
+
+            case "sendComponentsCsv":
+                sender.sendProduct(message);
                 break;
         }
     }
