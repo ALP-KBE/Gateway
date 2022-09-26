@@ -6,8 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import ALP.KBEGateway.RabbitMQ.RabbitMQSender;
 import ALP.RabbitMessage;
+import ALP.KBEGateway.RabbitMQ.RabbitMQSender;
 
 import static java.lang.Thread.sleep;
 
@@ -21,11 +21,9 @@ public class ComponentController {
     private RabbitMQSender rabbitMQSender;
 
     /**
-     * Get mapping that returns all components of given type. If no type was
-     * specified, all components are returned.
-     * 
-     * @param id the type of the component
-     * @return all components (of given type)
+     * GetMapping for retrieving all available components in given currency.
+     * @param currency the currency to convert. If not provided dollar will be used.
+     * @return all available components in a json array
      */
     @GetMapping("/components")
     public String getComponents(@RequestParam(value = "currency", defaultValue = "") String currency) {
@@ -41,21 +39,20 @@ public class ComponentController {
         }
         String allComponents = returnMessage;
         returnMessage = null;
-        RabbitMessage rabbitMessage = new RabbitMessage("getCurrency", allComponents);
+        RabbitMessage rabbitMessage = new RabbitMessage("components", allComponents);
         rabbitMessage.setAdditionalField(currency);
-        if(!currency.equals("")){
+        if (!currency.equals("")) {
             rabbitMQSender.sendCurrency(rabbitMessage);
             while (returnMessage == null) {
                 try {
                     System.out.println("und wir warten");
                     sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-        }
             return returnMessage;
-        }
-        else{
+        } else {
             return allComponents;
         }
     }

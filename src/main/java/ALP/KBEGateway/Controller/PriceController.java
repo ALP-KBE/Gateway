@@ -4,11 +4,12 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import ALP.KBEGateway.Model.Product;
-import ALP.KBEGateway.RabbitMQ.RabbitMQSender;
 import ALP.RabbitMessage;
+import ALP.KBEGateway.RabbitMQ.RabbitMQSender;
 
 import static java.lang.Thread.sleep;
+
+import java.io.Serializable;
 
 @RestController
 public class PriceController {
@@ -19,17 +20,24 @@ public class PriceController {
     @Autowired
     private RabbitMQSender rabbitMQSender;
 
-
+    /**
+     * Post Mapping to calculate a price of a single product.
+     * @param product the product one wants to get the price from.
+     * @return the price of the product
+     */
+    @Deprecated
     @PostMapping("/price")
-    public String calculatePrice(@RequestBody Product product) {
+    public String calculatePrice(@RequestBody Serializable product) {
         returnMessage = null;
         System.out.println("sending message");
-        rabbitMQSender.sendPrice(new RabbitMessage("getPrice", product));
+        RabbitMessage rabbitMessage = new RabbitMessage("getPrice", product);
+        rabbitMessage.setAdditionalField("");
+        rabbitMQSender.sendPrice(rabbitMessage);
         System.out.println("message sent");
         while (returnMessage == null) {
             try {
                 System.out.println("und wir warten");
-                sleep(10);
+                sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
